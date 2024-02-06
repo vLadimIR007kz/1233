@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="static\meets.css">
+    <title>Document</title>
+</head>
+<body>
+    <nav>
+    <div class="wrapper">
+      <div class="logo"><a href="/about-us"><img src="..\..\static\logo.png" alt=""></a></div>
+      <input type="radio" name="slider" id="menu-btn">
+      <input type="radio" name="slider" id="close-btn">
+      <ul class="nav-links">
+        <label for="close-btn" class="btn close-btn"><i class="fas fa-times"></i></label>
+        <li><a href="/meets-subj1">Консультации</a></li>
+        <li>
+          <a href="/subjects" class="desktop-item">Предметы</a>
+        </li>
+        <li><a href="/faq">FAQ</a></li>
+        <li><a href="/new">Подписка</a></li>
+        <li><a href="/Teachers">Учителя</a></li>
+        <li><a href="/about-us">Про нас</a></li>
+      </ul>
+      <ul class="nav-links">
+          {% if not(current_user.is_authenticated) %}
+      <li><div class="Log"><a href="/index">Вход</a></div></li>
+      <li><div class="Sign"><a href="/register">Регистрация</a></div></li>
+          {% endif %}
+          {% if current_user.is_authenticated %}
+            <li><div><a href="/logout">Выход</a></div></li>
+          {% endif %}
+      </ul>
+
+      <label for="menu-btn" class="btn menu-btn"><i class="fas fa-bars"></i></label>
+    </div>
+  </nav>
+    <div class="container">
+        <div class="meets">
+        {% for el in use %}
+            {% if el.email == current_user.email and el.confirmed == 1 %}
+        <div class="meet-box">
+                    <h1>У вас назначена конференция</h1>
+            <span class="date-conf">{{ el.date.date() }}</span>
+                    <h2>Дата и время: {{ el.possible_days }}</h2>
+                    <h2 class="topic">Тема: {{ el.topic }}</h2>
+                    <div class="btn-get"><a href="{{ el.link }}">Присоединиться</a></div>
+        </div>
+            {% endif %}
+        {% endfor %}
+        </div>
+    </div>
+
+</body>
+</html>

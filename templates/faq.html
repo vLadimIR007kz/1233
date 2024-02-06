@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static\faq.css">
+    <title>Document</title>
+</head>
+<body>
+<nav>
+    <div class="wrapper">
+      <div class="logo"><a href="/about-us"><img src="static\logo.png" alt=""></a></div>
+      <input type="radio" name="slider" id="menu-btn">
+      <input type="radio" name="slider" id="close-btn">
+      <ul class="nav-links">
+        <label for="close-btn" class="btn close-btn"><i class="fas fa-times"></i></label>
+        <li><a href="/meets-subj1">Консультации</a></li>
+        <li>
+          <a href="/subjects" class="desktop-item">Предметы</a>
+        </li>
+        <li><a href="/faq">FAQ</a></li>
+        <li><a href="/new">Подписка</a></li>
+        <li><a href="/Teachers">Учителя</a></li>
+        <li><a href="/about-us">Про нас</a></li>
+      </ul>
+      <ul class="nav-links">
+          {% if not(current_user.is_authenticated) %}
+      <li><div class="Log"><a href="/index">Вход</a></div></li>
+      <li><div class="Sign"><a href="/register">Регистрация</a></div></li>
+          {% endif %}
+          {% if current_user.is_authenticated %}
+            <li><div><a href="/logout">Выход</a></div></li>
+          {% endif %}
+      </ul>
+
+      <label for="menu-btn" class="btn menu-btn"><i class="fas fa-bars"></i></label>
+    </div>
+  </nav>
+
+  <div class="sec-center">
+    <input class="dropdown" type="checkbox" id="dropdown" name="dropdown"/>
+    <label class="for-dropdown" for="dropdown">Меню<i class="uil uil-arrow-down"></i></label>
+    <div class="section-dropdown">
+      <a href="main">Главная <i class="uil uil-arrow-right"></i></a>
+      <a href="meets-subj1">Консультации <i class="uil uil-arrow-right"></i></a>
+      <a href="new">Подписка <i class="uil uil-arrow-right"></i></a>
+      <input class="dropdown-sub2" type="checkbox" id="dropdown-sub2" name="dropdown-sub2"/>
+      <a href="subjects">Предметы<i class="uil uil-arrow-right"></i></a>
+      <a href="Teachers">Учителя <i class="uil uil-arrow-right"></i></a>
+      <a href="faq">FAQ</a>
+      <a href="index">Вход</a>
+      <a href="index">Регистрация</a>
+    </div>
+  </div>
+
+    <br>
+    <br>
+    <br>
+    <div class="faq-header">Часто задаваемые вопросы</div>
+
+<div class="faq-content">
+  <div class="faq-question">
+    <input id="q1" type="checkbox" class="panel">
+    <div class="plus">+</div>
+    <label for="q1" class="panel-title">Как создать аккаунт?</label>
+    <div class="panel-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip 
+        ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia 
+        deserunt mollit anim id est laborum.</div>
+  </div>
+  
+  <div class="faq-question">
+    <input id="q2" type="checkbox" class="panel">
+    <div class="plus">+</div>
+    <label for="q2" class="panel-title">Как создать запрос на консультацию?</label>
+    <div class="panel-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip 
+        ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia 
+        deserunt mollit anim id est laborum.</div>
+  </div>
+  
+  <div class="faq-question">
+    <input id="q3" type="checkbox" class="panel">
+    <div class="plus">+</div>
+    <label for="q3" class="panel-title">Как принять запрос преподавателю?</label>
+    <div class="panel-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip 
+        ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia 
+        deserunt mollit anim id est laborum.</div>
+  </div>
+</div>
+
+<div class="faq-question">
+    <input id="q4" type="checkbox" class="panel">
+    <div class="plus">+</div>
+    <label for="q4" class="panel-title">Как создать комнату консультации?</label>
+    <div class="panel-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip 
+        ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia 
+        deserunt mollit anim id est laborum.</div>
+  </div>
+<div class="faq-question">
+    <input id="q5" type="checkbox" class="panel">
+    <div class="plus">+</div>
+    <label for="q5" class="panel-title">Как отбираются преподаватели?</label>
+    <div class="panel-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip 
+        ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia 
+        deserunt mollit anim id est laborum.</div>
+  </div>
+<div class="faq-question">
+    <input id="q7" type="checkbox" class="panel">
+    <div class="plus">+</div>
+    <label for="q7" class="panel-title">На кого распространяется льготная подписка?</label>
+    <div class="panel-content">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip 
+        ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia 
+        deserunt mollit anim id est laborum.</div>
+  </div>
+</div>
+</body>
+</html>
