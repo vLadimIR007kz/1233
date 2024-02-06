@@ -280,6 +280,6 @@ if not class_9:
     db.session.add(class_9)
 
 db.session.commit()
-
+''''''
 if __name__ == "__main__":
     app.run(host="0.0.0.0",port=5000, debug=True)
