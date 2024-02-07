@@ -5,6 +5,8 @@ from flask_login import LoginManager, UserMixin, login_user, login_required, log
 from forms import LoginForm, RegistrationForm
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_mail import Mail, Message
+import pymysql
+pymysql.install_as_MySQLdb()
 import json
 
 app = Flask(__name__)
