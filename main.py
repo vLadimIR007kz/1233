@@ -10,7 +10,7 @@ import json
 app = Flask(__name__)
 app.app_context().push()
 app.config['SECRET_KEY'] = 'a really really really really long secret key'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///meets.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:D44gheD-FFfA1h6Fbg4aGdd-EHhg-a4H@monorail.proxy.rlwy.net:20474/railway'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 mail = Mail(app)
@@ -25,19 +25,23 @@ def load_user(user_id):
 
 
 class User(db.Model, UserMixin):
-    id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(50), nullable=False, unique=True)
+    id = db.Column(db.Integer)
+    email = db.Column(db.String(50), nullable=False, unique=True, primary_key=True)
     password_hash = db.Column(db.String(128), nullable=False)
     login = db.Column(db.String(30), nullable=False, unique=True)
 
     def set_password(self, password):
-        self.password_hash = generate_password_hash(password)
+        self.password_hash = generate_password_hash(password)[0:15]
 
     def check_password(self, password):
-        return check_password_hash(self.password_hash, password)
+        print(generate_password_hash(password)[0:15])
+        print(self.password_hash)
+        if(generate_password_hash(password)[0:15]==self.password_hash):
+            return True
+        return False
 
 
-class Use(db.Model):
+class Usee(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     quote = db.Column(db.String(300), nullable=False)
     topic = db.Column(db.String(100), nullable=False)
@@ -49,7 +53,7 @@ class Use(db.Model):
     email = db.Column(db.String(300))
 
     def __repr__(self):
-        return '<Use %r>' % self.id
+        return '<Usee %r>' % self.id
 
 
 class Class(db.Model):
@@ -123,7 +127,7 @@ def subjects():
 
 @app.route('/notifications')
 def notifications():
-    use = Use.query.order_by(Use.date.desc()).all()
+    use = Usee.query.order_by(Usee.date.desc()).all()
     return render_template('notifications.html', use=use)
 
 
@@ -159,7 +163,7 @@ def submit_link():
 
         meet_id = request.form.get('meet_id')
 
-        meet_record = Use.query.get(meet_id)
+        meet_record = Usee.query.get(meet_id)
 
         if meet_record:
             meet_record.link = link
@@ -207,7 +211,7 @@ def meets1():
         except:
             return "При добавлении ссылки произошла ошибка"
     else:
-        questions = Use.query.order_by(Use.date.desc()).all()
+        questions = Usee.query.order_by(Usee.date.desc()).all()
         return render_template('meets.html', questions=questions)
 
 
@@ -239,13 +243,13 @@ def meet_create():
         possible_day = list(possible_days)
         possible_days = ""
         possible_day[10] = " "
-        constant_user = User.query.filter_by(id=current_user.id).first()
+        constant_user = User.query.filter_by(id=current_user.email).first()
         email = constant_user.email
         for i in possible_day:
             possible_days = possible_days + i
         clas = request.form['class']
 
-        use = Use(quote=quote, topic=topic, possible_days=possible_days, clas=clas, confirmed=0, email=email)
+        use = Usee(quote=quote, topic=topic, possible_days=possible_days, clas=clas, confirmed=0, email=email)
         try:
             db.session.add(use)
             db.session.commit()
@@ -257,7 +261,7 @@ def meet_create():
         return render_template('create-meet.html')
 
 
-class_5 = Class.query.filter_by(name="5").first()
+'''class_5 = Class.query.filter_by(name="5").first()
 class_6 = Class.query.filter_by(name="6").first()
 class_7 = Class.query.filter_by(name="7").first()
 class_8 = Class.query.filter_by(name="8").first()
@@ -279,7 +283,6 @@ if not class_9:
     class_9 = Class(name="9")
     db.session.add(class_9)
 
-db.session.commit()
-''''''
+db.session.commit()'''
 if __name__ == "__main__":
     app.run(host="0.0.0.0",port=5000, debug=True)
