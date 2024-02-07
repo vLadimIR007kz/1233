@@ -17,3 +17,4 @@ importlib-metadata>=7.0.1
 wheel>=0.42.0
 mariaDB>=1.1.9
 PyMySQL>=1.1.0
+mysql-connector>=2.2.9
