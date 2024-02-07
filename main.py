@@ -9,7 +9,6 @@ from flask_mail import Mail, Message
 import pymysql
 pymysql.install_as_MySQLdb()
 import json
-import pymysql
 
 
 pymysql.install_as_MySQLdb()
