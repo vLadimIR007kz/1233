@@ -14,7 +14,6 @@ colorama>=0.4.6
 greenlet>=3.0.3
 importlib-metadata>=7.0.1
 wheel>=0.42.0
-mariaDB>=1.1.9
 mysql-connector>=2.2.9
 mysqlclient>=2.2.3
 configparser>=6.0.0
