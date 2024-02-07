@@ -7,6 +7,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_mail import Mail, Message
 import json
 
+print()
 app = Flask(__name__)
 app.app_context().push()
 app.config['SECRET_KEY'] = 'a really really really really long secret key'
