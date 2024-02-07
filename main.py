@@ -15,7 +15,7 @@ pymysql.install_as_MySQLdb()
 app = Flask(__name__)
 app.app_context().push()
 app.config['SECRET_KEY'] = 'a really really really really long secret key'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:D44gheD-FFfA1h6Fbg4aGdd-EHhg-a4H@monorail.proxy.rlwy.net:20474/railway'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:D44gheD-FFfA1h6Fbg4aGdd-EHhg-a4H@monorail.proxy.rlwy.net:20474/railway'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 engine = create_engine("mysql://root:D44gheD-FFfA1h6Fbg4aGdd-EHhg-a4H@monorail.proxy.rlwy.net:20474/railway")
 db = SQLAlchemy(app)
