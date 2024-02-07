@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, flash, jsonify
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import create_engine
 from datetime import datetime
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from forms import LoginForm, RegistrationForm
@@ -12,6 +13,7 @@ app.app_context().push()
 app.config['SECRET_KEY'] = 'a really really really really long secret key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:D44gheD-FFfA1h6Fbg4aGdd-EHhg-a4H@monorail.proxy.rlwy.net:20474/railway'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+engine = create_engine("mysql+pymysql://root:D44gheD-FFfA1h6Fbg4aGdd-EHhg-a4H@monorail.proxy.rlwy.net:20474/railway")
 db = SQLAlchemy(app)
 mail = Mail(app)
 
