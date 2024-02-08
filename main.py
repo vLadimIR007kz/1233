@@ -7,6 +7,8 @@ from forms import LoginForm, RegistrationForm
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_mail import Mail, Message
 import pymysql
+from random import randrange, randint
+
 pymysql.install_as_MySQLdb()
 import json
 
@@ -31,8 +33,8 @@ def load_user(user_id):
 
 
 class User(db.Model, UserMixin):
-    id = db.Column(db.Integer)
-    email = db.Column(db.String(50), nullable=False, unique=True, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(50), nullable=False, unique=True)
     password_hash = db.Column(db.String(128), nullable=False)
     login = db.Column(db.String(30), nullable=False, unique=True)
 
@@ -47,7 +49,7 @@ class User(db.Model, UserMixin):
         return False
 
 
-class Usee(db.Model):
+class usee(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     quote = db.Column(db.String(300), nullable=False)
     topic = db.Column(db.String(100), nullable=False)
@@ -59,7 +61,7 @@ class Usee(db.Model):
     email = db.Column(db.String(300))
 
     def __repr__(self):
-        return '<Usee %r>' % self.id
+        return '<usee %r>' % self.id
 
 
 class Class(db.Model):
@@ -80,6 +82,7 @@ class Course(db.Model):
     title = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text, nullable=False)
     subject_id = db.Column(db.Integer, db.ForeignKey('subject.id'), nullable=False)
+
 
 
 @app.route("/index", methods=['GET', 'POST'])
@@ -103,6 +106,7 @@ def register():
         try:
             user = User(email=form.email.data, login=form.login.data)
             user.set_password(form.password.data)
+            user.id = randint(1, 100000000)
 
             db.session.add(user)
             db.session.commit()
@@ -133,7 +137,7 @@ def subjects():
 
 @app.route('/notifications')
 def notifications():
-    use = Usee.query.order_by(Usee.date.desc()).all()
+    use = usee.query.order_by(usee.date.desc()).all()
     return render_template('notifications.html', use=use)
 
 
@@ -169,7 +173,7 @@ def submit_link():
 
         meet_id = request.form.get('meet_id')
 
-        meet_record = Usee.query.get(meet_id)
+        meet_record = usee.query.get(meet_id)
 
         if meet_record:
             meet_record.link = link
@@ -217,7 +221,7 @@ def meets1():
         except:
             return "При добавлении ссылки произошла ошибка"
     else:
-        questions = Usee.query.order_by(Usee.date.desc()).all()
+        questions = usee.query.order_by(usee.date.desc()).all()
         return render_template('meets.html', questions=questions)
 
 
@@ -255,7 +259,7 @@ def meet_create():
             possible_days = possible_days + i
         clas = request.form['class']
 
-        use = Usee(quote=quote, topic=topic, possible_days=possible_days, clas=clas, confirmed=0, email=email)
+        use = usee(quote=quote, topic=topic, possible_days=possible_days, clas=clas, confirmed=0, email=email)
         try:
             db.session.add(use)
             db.session.commit()
