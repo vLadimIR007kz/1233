@@ -253,6 +253,7 @@ def meet_create():
         possible_day = list(possible_days)
         possible_days = ""
         possible_day[10] = " "
+
         constant_user = User.query.filter_by(id=current_user.email).first()
         email = constant_user.email
         for i in possible_day:
