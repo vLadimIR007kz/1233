@@ -107,7 +107,7 @@ def register():
             user = User(email=form.email.data, login=form.login.data)
             user.set_password(form.password.data)
             user.id = randint(1, 100000000)
-
+            
             db.session.add(user)
             db.session.commit()
 
