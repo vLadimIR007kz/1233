@@ -12,105 +12,29 @@
 <body>
   <nav>
     <div class="wrapper">
-      <div class="logo"><a href="#">Logo</a></div>
+      <div class="logo"><a href="/"><img src="static\logo.png" alt=""></a></div>
       <input type="radio" name="slider" id="menu-btn">
       <input type="radio" name="slider" id="close-btn">
       <ul class="nav-links">
         <label for="close-btn" class="btn close-btn"><i class="fas fa-times"></i></label>
-        <li><a href="#">Главная</a></li>
+        <li><a href="/meets-subj1">Консультации</a></li>
         <li>
-          <a href="#" class="desktop-item">Вопрос-ответ</a>
-          <input type="checkbox" id="showDrop">
-          <label for="showDrop" class="mobile-item">Dropdown Menu</label>
-          <ul class="drop-menu">
-            <li><a href="#">Предмет 1</a></li>
-            <li><a href="#">Предмет 2</a></li>
-            <li><a href="#">Предмет 3</a></li>
-            <li><a href="#">Предмет 4</a></li>
-          </ul>
+          <a href="/subjects" class="desktop-item">Предметы</a>
         </li>
-        <li>
-          <a href="#" class="desktop-item">Предметы</a>
-          <input type="checkbox" id="showMega">
-          <label for="showMega" class="mobile-item">Mega Menu</label>
-          <div class="mega-box">
-            <div class="content">
-              <div class="row">
-                <header>5 Класс</header>
-                <ul class="mega-links">
-                  <li><a href="#">Предмет 1</a></li>
-                  <li><a href="#">Предмет 2</a></li>
-                  <li><a href="#">Предмет 3</a></li>
-                  <li><a href="#">Предмет 4</a></li>
-                </ul>
-              </div>
-              <div class="row">
-                <header>6 класс</header>
-                <ul class="mega-links">
-                  <li><a href="#">Предмет 1</a></li>
-                  <li><a href="#">Предмет 2</a></li>
-                  <li><a href="#">Предмет 3</a></li>
-                  <li><a href="#">Предмет 4</a></li>
-                </ul>
-              </div>
-              <div class="row">
-                <header>7 класс</header>
-                <ul class="mega-links">
-                  <li><a href="#">Предмет 1</a></li>
-                  <li><a href="#">Предмет 2</a></li>
-                  <li><a href="#">Предмет 3</a></li>
-                  <li><a href="#">Предмет 4</a></li>
-                </ul>
-              </div>
-                <div class="row">
-                <header>8 класс</header>
-                <ul class="mega-links">
-                  <li><a href="#">Предмет 1</a></li>
-                  <li><a href="#">Предмет 2</a></li>
-                  <li><a href="#">Предмет 3</a></li>
-                  <li><a href="#">Предмет 4</a></li>
-                </ul>
-              </div>
-  
-                <div class="row">
-                <header>9 класс</header>
-                <ul class="mega-links">
-                  <li><a href="#">Предмет 1</a></li>
-                  <li><a href="#">Предмет 2</a></li>
-                  <li><a href="#">Предмет 3</a></li>
-                  <li><a href="#">Предмет 4</a></li>
-                </ul>
-              </div>
-                <div class="row">
-                <header>10 класс</header>
-                <ul class="mega-links">
-                  <li><a href="#">Предмет 1</a></li>
-                  <li><a href="#">Предмет 2</a></li>
-                  <li><a href="#">Предмет 3</a></li>
-                  <li><a href="#">Предмет 4</a></li>
-                </ul>
-              </div>
-                <div class="row">
-                <header>11 класс</header>
-                <ul class="mega-links">
-                  <li><a href="#">Предмет 1</a></li>
-                  <li><a href="#">Предмет 2</a></li>
-                  <li><a href="#">Предмет 3</a></li>
-                  <li><a href="#">Предмет 4</a></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </li>
-        <li><a href="#">Подписка</a></li>
-        <li><a href="#">Лучшие учителя</a></li>
+        <li><a href="/faq">FAQ</a></li>
+        <li><a href="/new">Подписка</a></li>
+        <li><a href="/Teachers">Учителя</a></li>
       </ul>
-      
       <ul class="nav-links">
-      <li><div class="Log"><a href="#">Log in</a></div></li>
-      <li><div class="Sign"><a href="#">Sign in</a></div></li>
+          {% if not(current_user.is_authenticated) %}
+      <li><div class="Log"><a href="/index">Вход</a></div></li>
+      <li><div class="Sign"><a href="/register">Регистрация</a></div></li>
+          {% endif %}
+          {% if current_user.is_authenticated %}
+            <li><div><a href="/logout">Выход</a></div></li>
+          {% endif %}
       </ul>
-          
+
       <label for="menu-btn" class="btn menu-btn"><i class="fas fa-bars"></i></label>
     </div>
   </nav>
