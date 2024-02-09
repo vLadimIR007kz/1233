@@ -136,6 +136,7 @@ def subjects():
 
 
 @app.route('/notifications')
+@login_required
 def notifications():
     use = usee.query.order_by(usee.date.desc()).all()
     return render_template('notifications.html', use=use)
