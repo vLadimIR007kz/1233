@@ -684,6 +684,10 @@ h3{
   margin-bottom: 20px;
 }
 
+.main-text img{
+    width: 20%;
+}
+
 
 @media screen and (max-width: 550px) {
   .header h3{
