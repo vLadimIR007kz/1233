@@ -8,34 +8,41 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
         $(document).ready(function () {
-    var initialCourseId = $(".side-menu li:first-child a").attr("href");
-    updateContent(initialCourseId);
+            var initialCourseId = $(".side-menu li:first-child a").attr("href");
+            updateContent(initialCourseId);
 
-    $(".side-menu a").click(function (event) {
-        event.preventDefault();
-        var courseId = $(this).attr("href");
-        updateContent(courseId);
-    });
+            $(".side-menu a").click(function (event) {
+                event.preventDefault();
+                var courseId = $(this).attr("href");
+                updateContent(courseId);
+            });
 
-    function updateContent(courseId) {
-        $.ajax({
-            url: "/get_course_content/" + courseId,
-            type: "GET",
-            success: function (data) {
-                $("#course-title").text(data.title);
+            function updateContent(courseId) {
+                $.ajax({
+                    url: "/get_course_content/" + courseId,
+                    type: "GET",
+                    success: function (data) {
+                        $("#course-title").text(data.title);
 
-                var descriptionHtml = "";
-                for (var i = 0; i < data.description.length; i++) {
-                    descriptionHtml += "<p>" + data.description[i] + "</p>";
-                }
-                $("#course-description").html(descriptionHtml);
-            },
-            error: function () {
-                console.log("Error fetching course content");
+                        var descriptionHtml = "";
+                        $.each(data.description, function (index, value) {
+                            if (value.startsWith("<")) {
+
+                                var imageId = value.substring(1, value.length - 1);
+                                descriptionHtml += '<img src="/get_image/' + imageId + '" alt="Image">';
+                            } else {
+
+                                descriptionHtml += "<p>" + value + "</p>";
+                            }
+                        });
+                        $("#course-description").html(descriptionHtml);
+                    },
+                    error: function () {
+                        console.log("Еррор");
+                    }
+                });
             }
         });
-    }
-});
     </script>
 </head>
 <body>

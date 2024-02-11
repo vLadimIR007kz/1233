@@ -79,7 +79,13 @@ class Course(db.Model):
     description = db.Column(db.Text, nullable=False)
     subject_id = db.Column(db.Integer, db.ForeignKey('subject.id'), nullable=False)
 
+class Image(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    filename = db.Column(db.String(100), nullable=False)
+    course_id = db.Column(db.Integer, db.ForeignKey('course.id'), nullable=False)
 
+    def __repr__(self):
+        return f"Image('{self.filename}')"
 
 @app.route("/index", methods=['GET', 'POST'])
 def index():
@@ -155,9 +161,30 @@ def list_courses(subject_id):
 @app.route('/get_course_content/<int:course_id>', methods=['GET'])
 def get_course_content(course_id):
     course = Course.query.get_or_404(course_id)
+    description = course.description.split("/n")
+    images = Image.query.filter_by(course_id=course_id).all()
+    image_ids = [image.id for image in images]
+
+    for i, line in enumerate(description):
+        while "<" in line and ">" in line:
+            start_index = line.find("<")
+            end_index = line.find(">")
+            if start_index != -1 and end_index != -1:
+                image_id_str = line[start_index + 1:end_index]
+                if image_id_str.isdigit():
+                    image_id = int(image_id_str)
+                    if image_id in image_ids:
+                        image_filename = Image.query.get(image_id).filename
+                        line = line.replace(f"<{image_id_str}>", f"<img src='static/images/{image_filename}' alt='Image'>")
+                    else:
+                        line = line.replace(f"<{image_id_str}>", "")
+                else:
+                    line = line.replace(f"<{image_id_str}>", "")
+        description[i] = line
+
     content = {
         'title': course.title,
-        'description': course.description.split("/n")
+        'description': description
     }
     return jsonify(content)
 
