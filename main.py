@@ -19,7 +19,7 @@ app.app_context().push()
 app.config['SECRET_KEY'] = 'a really really really really long secret key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///instance/meets.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-engine = create_engine("mysql://root:D44gheD-FFfA1h6Fbg4aGdd-EHhg-a4H@monorail.proxy.rlwy.net:20474/railway")
+engine = create_engine("sqlite:///instance/meets.db")
 db = SQLAlchemy(app)
 mail = Mail(app)
 
@@ -164,7 +164,7 @@ def get_course_content(course_id):
     description = course.description.split("/n")
     images = Image.query.filter_by(course_id=course_id).all()
     image_ids = [image.id for image in images]
-
+    print(image_ids)
     for i, line in enumerate(description):
         while "<" in line and ">" in line:
             start_index = line.find("<")
