@@ -171,11 +171,13 @@ def get_course_content(course_id):
             end_index = line.find(">")
             if start_index != -1 and end_index != -1:
                 image_id_str = line[start_index + 1:end_index]
+
                 if image_id_str.isdigit():
                     image_id = int(image_id_str)
                     if image_id in image_ids:
                         image_filename = Image.query.get(image_id).filename
-                        line = line.replace(f"<{image_id_str}>", f"<img src='static/images/{image_filename}' alt='Image'>")
+                        line = line.replace(f"<{image_id_str}>", f"<img src='static/{image_filename}' alt='Image'>")
+                        print(line)
                     else:
                         line = line.replace(f"<{image_id_str}>", "")
                 else:
