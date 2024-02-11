@@ -176,18 +176,20 @@ def get_course_content(course_id):
                     image_id = int(image_id_str)
                     if image_id in image_ids:
                         image_filename = Image.query.get(image_id).filename
-                        line = line.replace(f"<{image_id_str}>", f"<img src='static/{image_filename}' alt='Image'>")
+                        line = line.replace(f"<{image_id_str}>", f"<img src='../../static/{image_filename}' alt='Image'>")
                         print(line)
+                        description[i] = line
                     else:
                         line = line.replace(f"<{image_id_str}>", "")
+                        print(1)
                 else:
+                    print(type(image_id_str))
                     line = line.replace(f"<{image_id_str}>", "")
-        description[i] = line
-
     content = {
         'title': course.title,
         'description': description
     }
+    print(description)
     return jsonify(content)
 
 
