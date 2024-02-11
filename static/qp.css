@@ -36,7 +36,12 @@ nav .wrapper{
   font-weight: 600;
   text-decoration: none;
 }
-
+.logo img{
+    top: 4px;
+    width:3%;
+    position: absolute;
+    min-width: 60px;
+}
 
 
 .wrapper .Log a{

@@ -20,11 +20,11 @@ nav{
   background-color: #fff;
   border-bottom: 1px solid #111;
 }
-
 .logo img{
     top: 4px;
     width:3%;
     position: absolute;
+    min-width: 60px;
 }
 
 nav .wrapper{

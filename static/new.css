@@ -39,6 +39,7 @@ nav .wrapper{
     top: 4px;
     width:3%;
     position: absolute;
+    min-width: 60px;
 }
 
 

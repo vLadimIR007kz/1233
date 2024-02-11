@@ -17,7 +17,7 @@ pymysql.install_as_MySQLdb()
 app = Flask(__name__)
 app.app_context().push()
 app.config['SECRET_KEY'] = 'a really really really really long secret key'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:D44gheD-FFfA1h6Fbg4aGdd-EHhg-a4H@monorail.proxy.rlwy.net:20474/railway'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///instance/meets.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 engine = create_engine("mysql://root:D44gheD-FFfA1h6Fbg4aGdd-EHhg-a4H@monorail.proxy.rlwy.net:20474/railway")
 db = SQLAlchemy(app)
@@ -39,14 +39,10 @@ class User(db.Model, UserMixin):
     login = db.Column(db.String(30), nullable=False, unique=True)
 
     def set_password(self, password):
-        self.password_hash = generate_password_hash(password)[0:15]
+        self.password_hash = generate_password_hash(password)
 
     def check_password(self, password):
-        print(generate_password_hash(password)[0:15])
-        print(self.password_hash)
-        if(generate_password_hash(password)[0:15]==self.password_hash):
-            return True
-        return False
+        return check_password_hash(self.password_hash, password)
 
 
 class usee(db.Model):
