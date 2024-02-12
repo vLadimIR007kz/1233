@@ -109,7 +109,7 @@ def register():
             user = User(email=form.email.data, login=form.login.data)
             user.set_password(form.password.data)
             user.id = randint(1, 100000000)
-            
+
             db.session.add(user)
             db.session.commit()
 
@@ -281,8 +281,7 @@ def meet_create():
         possible_day = list(possible_days)
         possible_days = ""
         possible_day[10] = " "
-
-        constant_user = User.query.filter_by(id=current_user.email).first()
+        constant_user = User.query.filter_by(id=current_user.id).first()
         email = constant_user.email
         for i in possible_day:
             possible_days = possible_days + i
