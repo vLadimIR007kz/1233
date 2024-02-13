@@ -55,6 +55,7 @@ class usee(db.Model):
     confirmed = db.Column(db.Integer, nullable=False)
     link = db.Column(db.String(300))
     email = db.Column(db.String(300))
+    sender = db.Column(db.String(300))
 
     def __repr__(self):
         return '<usee %r>' % self.id
@@ -206,6 +207,7 @@ def submit_link():
         if meet_record:
             meet_record.link = link
             meet_record.confirmed = 1
+            meet_record.sender = current_user.email
             try:
                 db.session.commit()
 
