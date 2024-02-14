@@ -16,10 +16,11 @@ import json
 pymysql.install_as_MySQLdb()
 app = Flask(__name__)
 app.app_context().push()
+ssl_args = {'ssl_ca': 'static/ca.pem'}
 app.config['SECRET_KEY'] = 'a really really really really long secret key'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///instance/meets.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://avnadmin:AVNS_L0R9hOLeXBv9wkirOjP@mysql-306be6a8-enactus.a.aivencloud.com:26361/defaultdb?ssl_key=static/ca.pem'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-engine = create_engine("sqlite:///instance/meets.db")
+engine = create_engine("mysql+pymysql://avnadmin:AVNS_L0R9hOLeXBv9wkirOjP@mysql-306be6a8-enactus.a.aivencloud.com:26361/defaultdb?ssl-mode=REQUIRED",connect_args=ssl_args)
 db = SQLAlchemy(app)
 mail = Mail(app)
 
@@ -39,10 +40,14 @@ class User(db.Model, UserMixin):
     login = db.Column(db.String(30), nullable=False, unique=True)
 
     def set_password(self, password):
-        self.password_hash = generate_password_hash(password)
+        self.password_hash = generate_password_hash(password)[0:15]
 
     def check_password(self, password):
-        return check_password_hash(self.password_hash, password)
+        print(generate_password_hash(password)[0:15])
+        print(self.password_hash)
+        if (generate_password_hash(password)[0:15] == self.password_hash):
+            return True
+        return False
 
 
 class usee(db.Model):
