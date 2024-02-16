@@ -25,6 +25,7 @@ engine = create_engine("mysql+pymysql://avnadmin:AVNS_L0R9hOLeXBv9wkirOjP@mysql-
 db = SQLAlchemy(app)
 mail = Mail(app)
 
+
 login_manager = LoginManager(app)
 login_manager.login_view = 'index'
 
