@@ -107,9 +107,9 @@ class Image(db.Model):
 
 def fake_sender():
     randomval = randint(0, 1000)
+    ide = randomvalues(id=randomval)
+    print(ide)
     try:
-        ide = randomvalues(id=randomval)
-        print(ide)
         db.session.add(ide)
         db.session.commit()
         try:
