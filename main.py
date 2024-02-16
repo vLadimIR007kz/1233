@@ -8,6 +8,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_mail import Mail, Message
 import pymysql
 from random import randrange, randint
+import threading
 
 pymysql.install_as_MySQLdb()
 import json
@@ -78,7 +79,8 @@ class Subject(db.Model):
     class_id = db.Column(db.Integer, db.ForeignKey('class.id'), nullable=False)
     courses = db.relationship('Course', backref='subject', lazy=True)
 
-
+class randomvalues(db.Model):
+    id=db.Column(db.Integer, primary_key=True)
 class Course(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
