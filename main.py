@@ -8,6 +8,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_mail import Mail, Message
 import pymysql
 import threading
+from threading import Timer
 import time
 from random import randrange, randint
 import threading
@@ -105,17 +106,33 @@ class Image(db.Model):
 
 
 def fake_sender():
-    while True:
-        randomval = randint(0, 1)
-        id = randomvalues(id=randomval)
-        db.session.add(id)
+    randomval = randint(0, 1000)
+    try:
+        ide = randomvalues(id=randomval)
+        print(ide)
+        db.session.add(ide)
         db.session.commit()
-        randomvalues.query.filter_by(id=id).delete()
-        db.session.commit()
-        time.sleep(600)
+        try:
+            randomvalues.query.filter_by(id=ide).delete()
+            db.session.commit()
+        except:
+            print("NOOOOOOO")
+    except:
+        print("Oh hell no, man, what the fuck")
 
 
-threading.Thread(target=fake_sender()).start()
+
+def shedule(func, nth_sec):
+    now_sec = datetime.now().second
+    wait = (5 + nth_sec - now_sec) % 5
+
+    Timer(wait, func).start()
+    Timer(wait + 1, lambda: shedule(func, nth_sec)).start()
+
+
+shedule(fake_sender, 10)
+print("ok")
+
 
 @app.route("/index", methods=['GET', 'POST'])
 def index():
