@@ -38,20 +38,6 @@ def load_user(user_id):
     return User.query.get(int(user_id))
 
 
-def fake_sender():
-    while True:
-        randomval = randint(0, 1)
-        id = randomvalues(id=randomval)
-        db.session.add(id)
-        db.session.commit()
-        randomvalues.query.filter_by(id=id).delete()
-        db.session.commit()
-        time.sleep(600)
-
-
-threading.Thread(target=fake_sender()).start()
-
-
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(50), nullable=False, unique=True)
@@ -117,6 +103,19 @@ class Image(db.Model):
     def __repr__(self):
         return f"Image('{self.filename}')"
 
+
+def fake_sender():
+    while True:
+        randomval = randint(0, 1)
+        id = randomvalues(id=randomval)
+        db.session.add(id)
+        db.session.commit()
+        randomvalues.query.filter_by(id=id).delete()
+        db.session.commit()
+        time.sleep(600)
+
+
+threading.Thread(target=fake_sender()).start()
 
 @app.route("/index", methods=['GET', 'POST'])
 def index():
