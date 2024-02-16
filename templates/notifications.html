@@ -41,7 +41,7 @@
     <div class="container">
         <div class="meets">
         {% for el in use %}
-            {% if el.email == current_user.email and el.confirmed == 1 %}
+            {% if (el.email == current_user.email and el.confirmed == 1) or ( el.confirmed == 1 and el.sender == current_user.email ) %}
         <div class="meet-box">
                     <h1>У вас назначена конференция</h1>
             <span class="date-conf">{{ el.date.date() }}</span>
