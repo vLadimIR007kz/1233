@@ -7,24 +7,27 @@ from forms import LoginForm, RegistrationForm
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_mail import Mail, Message
 import pymysql
+import threading
+import time
 from random import randrange, randint
 import threading
 
 pymysql.install_as_MySQLdb()
 import json
 
-
 pymysql.install_as_MySQLdb()
 app = Flask(__name__)
 app.app_context().push()
 ssl_args = {'ssl_ca': 'static/ca.pem'}
 app.config['SECRET_KEY'] = 'a really really really really long secret key'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://avnadmin:AVNS_L0R9hOLeXBv9wkirOjP@mysql-306be6a8-enactus.a.aivencloud.com:26361/defaultdb?ssl_key=static/ca.pem'
+app.config[
+    'SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://avnadmin:AVNS_L0R9hOLeXBv9wkirOjP@mysql-306be6a8-enactus.a.aivencloud.com:26361/defaultdb?ssl_key=static/ca.pem'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-engine = create_engine("mysql+pymysql://avnadmin:AVNS_L0R9hOLeXBv9wkirOjP@mysql-306be6a8-enactus.a.aivencloud.com:26361/defaultdb?ssl-mode=REQUIRED",connect_args=ssl_args)
+engine = create_engine(
+    "mysql+pymysql://avnadmin:AVNS_L0R9hOLeXBv9wkirOjP@mysql-306be6a8-enactus.a.aivencloud.com:26361/defaultdb?ssl-mode=REQUIRED",
+    connect_args=ssl_args)
 db = SQLAlchemy(app)
 mail = Mail(app)
-
 
 login_manager = LoginManager(app)
 login_manager.login_view = 'index'
@@ -33,6 +36,20 @@ login_manager.login_view = 'index'
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
+
+def fake_sender():
+    while True:
+        randomval = randint(0, 1)
+        id = randomvalues(id=randomval)
+        db.session.add(id)
+        db.session.commit()
+        randomvalues.query.filter_by(id=id).delete()
+        db.session.commit()
+        time.sleep(600)
+
+
+threading.Thread(target=fake_sender()).start()
 
 
 class User(db.Model, UserMixin):
@@ -80,13 +97,17 @@ class Subject(db.Model):
     class_id = db.Column(db.Integer, db.ForeignKey('class.id'), nullable=False)
     courses = db.relationship('Course', backref='subject', lazy=True)
 
+
 class randomvalues(db.Model):
-    id=db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
+
+
 class Course(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     description = db.Column(db.Text, nullable=False)
     subject_id = db.Column(db.Integer, db.ForeignKey('subject.id'), nullable=False)
+
 
 class Image(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -95,6 +116,7 @@ class Image(db.Model):
 
     def __repr__(self):
         return f"Image('{self.filename}')"
+
 
 @app.route("/index", methods=['GET', 'POST'])
 def index():
@@ -185,7 +207,8 @@ def get_course_content(course_id):
                     image_id = int(image_id_str)
                     if image_id in image_ids:
                         image_filename = Image.query.get(image_id).filename
-                        line = line.replace(f"<{image_id_str}>", f"<img src='../../static/{image_filename}' alt='Image'>")
+                        line = line.replace(f"<{image_id_str}>",
+                                            f"<img src='../../static/{image_filename}' alt='Image'>")
                         print(line)
                         description[i] = line
                     else:
@@ -288,7 +311,7 @@ def meet_create():
         quote = request.form['quote']
         topic = request.form['topic']
         possible_days = request.form['possible_days']
-        print( possible_days)
+        print(possible_days)
         possible_day = list(possible_days)
         possible_days = ""
         possible_day[10] = " "
@@ -297,10 +320,11 @@ def meet_create():
         for i in possible_day:
             possible_days = possible_days + i
         clas = request.form['class']
-        possible_days=possible_days+":10"
-        ides=randint(1,1000000000)
-        use = usee(id=ides,quote=quote, topic=topic, possible_days=possible_days, clas=clas, confirmed=0, email=email, date=datetime.now())
-        print(quote+",", topic, possible_days,clas, email, datetime.now)
+        possible_days = possible_days + ":10"
+        ides = randint(1, 1000000000)
+        use = usee(id=ides, quote=quote, topic=topic, possible_days=possible_days, clas=clas, confirmed=0, email=email,
+                   date=datetime.now())
+        print(quote + ",", topic, possible_days, clas, email, datetime.now)
         try:
             db.session.add(use)
             db.session.commit()
@@ -336,4 +360,4 @@ if not class_9:
 
 db.session.commit()'''
 if __name__ == "__main__":
-    app.run(host="0.0.0.0",port=5000)
+    app.run(host="0.0.0.0", port=5000)
