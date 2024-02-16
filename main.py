@@ -20,12 +20,9 @@ app = Flask(__name__)
 app.app_context().push()
 ssl_args = {'ssl_ca': 'static/ca.pem'}
 app.config['SECRET_KEY'] = 'a really really really really long secret key'
-app.config[
-    'SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://avnadmin:AVNS_L0R9hOLeXBv9wkirOjP@mysql-306be6a8-enactus.a.aivencloud.com:26361/defaultdb?ssl_key=static/ca.pem'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://avnadmin:AVNS_L0R9hOLeXBv9wkirOjP@mysql-306be6a8-enactus.a.aivencloud.com:26361/defaultdb?ssl_key=static/ca.pem'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-engine = create_engine(
-    "mysql+pymysql://avnadmin:AVNS_L0R9hOLeXBv9wkirOjP@mysql-306be6a8-enactus.a.aivencloud.com:26361/defaultdb?ssl-mode=REQUIRED",
-    connect_args=ssl_args)
+engine = create_engine("mysql+pymysql://avnadmin:AVNS_L0R9hOLeXBv9wkirOjP@mysql-306be6a8-enactus.a.aivencloud.com:26361/defaultdb?ssl-mode=REQUIRED",connect_args=ssl_args)
 db = SQLAlchemy(app)
 mail = Mail(app)
 
@@ -84,7 +81,7 @@ class Subject(db.Model):
     courses = db.relationship('Course', backref='subject', lazy=True)
 
 
-class randomvalues(db.Model):
+class randomvalue(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
 
@@ -106,16 +103,27 @@ class Image(db.Model):
 
 def fake_sender():
     while True:
-        randomval = randint(0, 1)
-        id = randomvalues(id=randomval)
-        db.session.add(id)
-        db.session.commit()
-        randomvalues.query.filter_by(id=id).delete()
-        db.session.commit()
-        time.sleep(600)
-
-
+        time.sleep(5)
+        randomval = randint(1, 100000000)
+        try:
+            id = randomvalue(id=randomval)
+            db.session.add(id)
+            db.session.commit()
+            time.sleep(5)
+            print("add")
+            try:
+                randomvalue.query.filter_by(id=id).delete()
+                db.session.commit()
+                print("dell")
+            except:
+                print("KILL YOURSELF")
+        except:
+            print("KILL YOURSELF")
 threading.Thread(target=fake_sender()).start()
+
+
+
+
 
 @app.route("/index", methods=['GET', 'POST'])
 def index():
