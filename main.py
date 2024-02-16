@@ -58,9 +58,9 @@ class usee(db.Model):
     possible_days = db.Column(db.String(50), nullable=False)
     clas = db.Column(db.Integer, nullable=False)
     confirmed = db.Column(db.Integer, nullable=False)
-    link = db.Column(db.String(300))
-    email = db.Column(db.String(300))
-    sender = db.Column(db.String(300))
+    link = db.Column(db.String(300), default=None)
+    email = db.Column(db.String(300), default=None)
+    sender = db.Column(db.String(300), default=None)
 
     def __repr__(self):
         return '<usee %r>' % self.id
@@ -285,6 +285,7 @@ def meet_create():
         quote = request.form['quote']
         topic = request.form['topic']
         possible_days = request.form['possible_days']
+        print( possible_days)
         possible_day = list(possible_days)
         possible_days = ""
         possible_day[10] = " "
@@ -293,8 +294,10 @@ def meet_create():
         for i in possible_day:
             possible_days = possible_days + i
         clas = request.form['class']
-
-        use = usee(quote=quote, topic=topic, possible_days=possible_days, clas=clas, confirmed=0, email=email)
+        possible_days=possible_days+":10"
+        ides=randint(1,1000000000)
+        use = usee(id=ides,quote=quote, topic=topic, possible_days=possible_days, clas=clas, confirmed=0, email=email, date=datetime.now())
+        print(quote+",", topic, possible_days,clas, email, datetime.now)
         try:
             db.session.add(use)
             db.session.commit()
@@ -330,4 +333,4 @@ if not class_9:
 
 db.session.commit()'''
 if __name__ == "__main__":
-    app.run(host="0.0.0.0",port=5000, debug=True)
+    app.run(host="0.0.0.0",port=5000)
