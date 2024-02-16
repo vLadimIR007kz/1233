@@ -21,12 +21,9 @@ app = Flask(__name__)
 app.app_context().push()
 ssl_args = {'ssl_ca': 'static/ca.pem'}
 app.config['SECRET_KEY'] = 'a really really really really long secret key'
-app.config[
-    'SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://avnadmin:AVNS_L0R9hOLeXBv9wkirOjP@mysql-306be6a8-enactus.a.aivencloud.com:26361/defaultdb?ssl_key=static/ca.pem'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://avnadmin:AVNS_L0R9hOLeXBv9wkirOjP@mysql-306be6a8-enactus.a.aivencloud.com:26361/defaultdb?ssl_key=static/ca.pem'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-engine = create_engine(
-    "mysql+pymysql://avnadmin:AVNS_L0R9hOLeXBv9wkirOjP@mysql-306be6a8-enactus.a.aivencloud.com:26361/defaultdb?ssl-mode=REQUIRED",
-    connect_args=ssl_args)
+engine = create_engine("mysql+pymysql://avnadmin:AVNS_L0R9hOLeXBv9wkirOjP@mysql-306be6a8-enactus.a.aivencloud.com:26361/defaultdb?ssl-mode=REQUIRED",connect_args=ssl_args)
 db = SQLAlchemy(app)
 mail = Mail(app)
 
@@ -85,7 +82,7 @@ class Subject(db.Model):
     courses = db.relationship('Course', backref='subject', lazy=True)
 
 
-class randomvalues(db.Model):
+class randomvalue(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
 
@@ -106,14 +103,15 @@ class Image(db.Model):
 
 
 def fake_sender():
-    randomval = randint(0, 1000)
-    ide = randomvalues(id=randomval)
+    app.app_context().push()
+    randomval = randint(1, 100000000)
+    ide = randomvalue(id=randomval)
     print(ide)
     try:
         db.session.add(ide)
         db.session.commit()
         try:
-            randomvalues.query.filter_by(id=ide).delete()
+            randomvalue.query.filter_by(id=randomval).delete()
             db.session.commit()
         except:
             print("NOOOOOOO")
@@ -124,10 +122,10 @@ def fake_sender():
 
 def shedule(func, nth_sec):
     now_sec = datetime.now().second
-    wait = (5 + nth_sec - now_sec) % 5
+    wait = (60 + nth_sec - now_sec) % 60
 
     Timer(wait, func).start()
-    Timer(wait + 1, lambda: shedule(func, nth_sec)).start()
+    Timer(wait + 60, lambda: shedule(func, nth_sec)).start()
 
 
 shedule(fake_sender, 10)
@@ -376,4 +374,4 @@ if not class_9:
 
 db.session.commit()'''
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=5000, debug=True)
