@@ -199,8 +199,9 @@ def class_subjects(class_id):
 @app.route('/subject/<int:subject_id>/1')
 def list_courses(subject_id):
     subject = Subject.query.get_or_404(subject_id)
+    class_info = Class.query.get_or_404(subject_id)
     courses = subject.courses
-    return render_template('article.html', subject=subject, courses=courses)
+    return render_template('article.html', subject=subject, courses=courses, class_info=class_info)
 
 
 @app.route('/get_course_content/<int:course_id>', methods=['GET'])
