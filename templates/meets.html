@@ -11,9 +11,9 @@
 </head>
 
 <body>
-  <nav>
+<nav>
     <div class="wrapper">
-      <div class="logo"><a href="/"><img src="static\logo.png" alt=""></a></div>
+      <div class="logo"><a href="/"><img src="..\..\static\logo.png" alt=""></a></div>
       <input type="radio" name="slider" id="menu-btn">
       <input type="radio" name="slider" id="close-btn">
       <ul class="nav-links">
@@ -23,8 +23,7 @@
           <a href="/subjects" class="desktop-item">Предметы</a>
         </li>
         <li><a href="/faq">FAQ</a></li>
-        <li><a href="/new">Подписка</a></li>
-        <li><a href="/Teachers">Учителя</a></li>
+
         <li><a href="/notifications">Уведомления</a></li>
       </ul>
       <ul class="nav-links">
@@ -50,10 +49,15 @@
       <a href="new">Подписка <i class="uil uil-arrow-right"></i></a>
       <input class="dropdown-sub2" type="checkbox" id="dropdown-sub2" name="dropdown-sub2"/>
       <a href="subjects">Предметы<i class="uil uil-arrow-right"></i></a>
-      <a href="Teachers">Учителя <i class="uil uil-arrow-right"></i></a>
       <a href="faq">FAQ</a>
+      <a href="notifications">Уведомления</a>
+      {% if not(current_user.is_authenticated) %}
       <a href="index">Вход</a>
       <a href="index">Регистрация</a>
+      {% endif %}
+      {% if current_user.is_authenticated %}
+      <a href="/logout">Выход</a>
+      {% endif %}
     </div>
   </div>
 
@@ -70,8 +74,11 @@
         <h3>{{ el.clas }}</h3>
         <h2>{{ el.possible_days }}</h2>
         <blockquote>{{ el.quote }}</blockquote>
-
+        {% for question in questions %}
+        {% if current_user.email != question.email %}
         <button class="btn-get" onclick="toggle(hidden_content, {{ el.id }})" id="{{ el.id }}">Принять</button>
+        {% endif %}
+        {% endfor %}
     </div>
         {%endif%}
       {% endfor %}
@@ -82,7 +89,9 @@
   <h1>Введите адрес ссылки собрания zoom</h1>
   <form onsubmit="submitLink(); return false;" class="linkk">
     <input type="text" name="form-link" id="form-link" class="form-link">
+
     <input type="submit" value="Отправить ссылку">
+
   </form>
 </div>
 
