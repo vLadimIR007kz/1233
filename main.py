@@ -136,10 +136,13 @@ print("ok")
 def index():
     form = LoginForm(request.form)
     if form.validate_on_submit():
+        print("LOGIN LETSGO")
         user = User.query.filter_by(email=form.email.data).first()
 
         if user and user.check_password(form.password.data):
+            print("START")
             login_user(user)
+            print("DONE")
             return redirect('/meets-subj1')
         else:
             flash('Invalid email or password', 'error')
@@ -149,15 +152,17 @@ def index():
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     form = RegistrationForm(request.form)
+    print("HUUUU")
     if form.validate_on_submit():
         try:
+            print("REG LET'S GO")
             user = User(email=form.email.data, login=form.login.data)
             user.set_password(form.password.data)
             user.id = randint(1, 100000000)
-
+            print("BD PUSH")
             db.session.add(user)
             db.session.commit()
-
+            print("BD DONE")
             login_user(user)
             flash('Регистрация успешна!', 'success')
             return redirect('/meets-subj1')
