@@ -138,6 +138,9 @@ def index():
     print("kekw")
     if request.method=="POST":
         print("POST")
+        for l in form:
+            print(l)
+        print(form.validate_on_submit())
         if form.validate_on_submit():
             print("LOGIN LETSGO")
             user = User.query.filter_by(email=form.email.data).first()
@@ -160,6 +163,9 @@ def register():
     print("HUUUU")
     if request.method=="POST":
         print("POST")
+        for l in form:
+            print(l)
+        print(form.validate_on_submit())
         if form.validate_on_submit():
             try:
                 print("REG LET'S GO")
@@ -242,7 +248,7 @@ def get_course_content(course_id):
                         line = line.replace(f"<{image_id_str}>",
                                             f"<img src='../../static/{image_filename}' alt='Image'>")
                         print(line)
-                        
+
                         description[i] = line
                     else:
                         line = line.replace(f"<{image_id_str}>", "")
