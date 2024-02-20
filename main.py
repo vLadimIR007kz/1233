@@ -153,6 +153,7 @@ def index():
             else:
                 flash('Invalid email or password', 'error')
     else:
+        print(form.errors)
         print("POMOOGITE BLYAT")
     return render_template('index.html', form=form)
 
@@ -184,6 +185,7 @@ def register():
                 db.session.rollback()
                 flash('Ошибка регистрации. Возможно, такой пользователь уже существует.', 'error')
         else:
+            print(form.errors)
             print("IDI NAHUI")
     else:
         print("TA TI SAEBAL")
