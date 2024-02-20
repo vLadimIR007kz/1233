@@ -25,6 +25,7 @@
             <form method="post">
                 <h1>Создать аккаунт</h1>
                 <span>Создайте аккаунт с помощью почты</span>
+                <input type="hidden" name="csrf_token" value = "{{ csrf_token() }}" />
                 {{ form.email }}
                 {{ form.login }}
                 {{ form.password }}
