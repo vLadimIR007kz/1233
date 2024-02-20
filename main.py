@@ -27,7 +27,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 engine = create_engine("mysql+pymysql://avnadmin:AVNS_L0R9hOLeXBv9wkirOjP@mysql-306be6a8-enactus.a.aivencloud.com:26361/defaultdb?ssl-mode=REQUIRED",connect_args=ssl_args)
 db = SQLAlchemy(app)
 mail = Mail(app)
-csrf = CSRFProtect(app)
+
 login_manager = LoginManager(app)
 login_manager.login_view = 'index'
 
@@ -132,12 +132,13 @@ def shedule(func, nth_sec):
 shedule(fake_sender, 10)
 print("ok")
 
-@csrf.exempt
 @app.route("/index", methods=['GET', 'POST'])
 def index():
+
     form = LoginForm(request.form)
     print("kekw")
     if request.method=="POST":
+        csrf = CSRFProtect(app)
         print("POST")
         for l in form:
             print(l)
@@ -151,6 +152,7 @@ def index():
                 print("START")
                 login_user(user)
                 print("DONE")
+                csrf=None
                 return redirect('/meets-subj1')
             else:
                 flash('Invalid email or password', 'error')
@@ -160,12 +162,13 @@ def index():
         print("POMOOGITE BLYAT")
     return render_template('index.html', form=form)
 
-@csrf.exempt
+
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     form = RegistrationForm(request.form)
     print("HUUUU")
     if request.method=="POST":
+        csrf = CSRFProtect(app)
         print("POST")
         for l in form:
             print(l)
@@ -195,7 +198,6 @@ def register():
     return render_template('register.html', form=form)
 
 
-@csrf.exempt
 @app.route("/logout")
 @login_required
 def logout():
