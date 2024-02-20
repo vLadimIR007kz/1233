@@ -27,7 +27,6 @@
             <form method="post">
                 <h1>Вход в аккаунт</h1>
                 <span>Введите почту</span>
-                <input type="hidden" name="csrf_token" value = "{{ csrf_token() }}" />
                 {{ form.email }}
                 {{ form.password }}
                 <a href="main.html">Забыли пароль?</a>
