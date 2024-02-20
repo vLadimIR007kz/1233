@@ -6,6 +6,7 @@ from flask_login import LoginManager, UserMixin, login_user, login_required, log
 from forms import LoginForm, RegistrationForm
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_mail import Mail, Message
+from flask_wtf.csrf import CSRFProtect
 import pymysql
 import threading
 from threading import Timer
@@ -26,7 +27,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 engine = create_engine("mysql+pymysql://avnadmin:AVNS_L0R9hOLeXBv9wkirOjP@mysql-306be6a8-enactus.a.aivencloud.com:26361/defaultdb?ssl-mode=REQUIRED",connect_args=ssl_args)
 db = SQLAlchemy(app)
 mail = Mail(app)
-
+csrf = CSRFProtect(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'index'
 
