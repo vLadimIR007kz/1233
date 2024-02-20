@@ -132,7 +132,7 @@ def shedule(func, nth_sec):
 shedule(fake_sender, 10)
 print("ok")
 
-
+@csrf.exempt
 @app.route("/index", methods=['GET', 'POST'])
 def index():
     form = LoginForm(request.form)
@@ -160,7 +160,7 @@ def index():
         print("POMOOGITE BLYAT")
     return render_template('index.html', form=form)
 
-
+@csrf.exempt
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     form = RegistrationForm(request.form)
@@ -195,7 +195,7 @@ def register():
     return render_template('register.html', form=form)
 
 
-
+@csrf.exempt
 @app.route("/logout")
 @login_required
 def logout():
