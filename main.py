@@ -141,6 +141,7 @@ def index():
         for l in form:
             print(l)
         print(form.validate_on_submit())
+        print(form.errors)
         if form.validate_on_submit():
             print("LOGIN LETSGO")
             user = User.query.filter_by(email=form.email.data).first()
@@ -152,8 +153,9 @@ def index():
                 return redirect('/meets-subj1')
             else:
                 flash('Invalid email or password', 'error')
+        else:
+            print("IDI NAHUI1")
     else:
-        print(form.errors)
         print("POMOOGITE BLYAT")
     return render_template('index.html', form=form)
 
@@ -167,6 +169,7 @@ def register():
         for l in form:
             print(l)
         print(form.validate_on_submit())
+        print(form.errors)
         if form.validate_on_submit():
             try:
                 print("REG LET'S GO")
@@ -185,8 +188,7 @@ def register():
                 db.session.rollback()
                 flash('Ошибка регистрации. Возможно, такой пользователь уже существует.', 'error')
         else:
-            print(form.errors)
-            print("IDI NAHUI")
+            print("IDI NAHUI2")
     else:
         print("TA TI SAEBAL")
     return render_template('register.html', form=form)
