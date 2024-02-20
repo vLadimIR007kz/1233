@@ -135,42 +135,50 @@ print("ok")
 @app.route("/index", methods=['GET', 'POST'])
 def index():
     form = LoginForm(request.form)
-    if form.validate_on_submit():
-        print("LOGIN LETSGO")
-        user = User.query.filter_by(email=form.email.data).first()
+    print("kekw")
+    if request.method=="POST":
+        if form.validate_on_submit():
+            print("LOGIN LETSGO")
+            user = User.query.filter_by(email=form.email.data).first()
 
-        if user and user.check_password(form.password.data):
-            print("START")
-            login_user(user)
-            print("DONE")
-            return redirect('/meets-subj1')
-        else:
-            flash('Invalid email or password', 'error')
-    return render_template('index.html', form=form)
+            if user and user.check_password(form.password.data):
+                print("START")
+                login_user(user)
+                print("DONE")
+                return redirect('/meets-subj1')
+            else:
+                flash('Invalid email or password', 'error')
+    else:
+        return render_template('index.html', form=form)
 
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     form = RegistrationForm(request.form)
     print("HUUUU")
-    if form.validate_on_submit():
-        try:
-            print("REG LET'S GO")
-            user = User(email=form.email.data, login=form.login.data)
-            user.set_password(form.password.data)
-            user.id = randint(1, 100000000)
-            print("BD PUSH")
-            db.session.add(user)
-            db.session.commit()
-            print("BD DONE")
-            login_user(user)
-            flash('Регистрация успешна!', 'success')
-            return redirect('/meets-subj1')
-        except Exception as e:
-            print(f"Error adding user to the database: {str(e)}")
-            db.session.rollback()
-            flash('Ошибка регистрации. Возможно, такой пользователь уже существует.', 'error')
-    return render_template('register.html', form=form)
+    if request.method=="POST":
+        if form.validate_on_submit():
+            try:
+                print("REG LET'S GO")
+                user = User(email=form.email.data, login=form.login.data)
+                user.set_password(form.password.data)
+                user.id = randint(1, 100000000)
+                print("BD PUSH")
+                db.session.add(user)
+                db.session.commit()
+                print("BD DONE")
+                login_user(user)
+                flash('Регистрация успешна!', 'success')
+                return redirect('/meets-subj1')
+            except Exception as e:
+                print(f"Error adding user to the database: {str(e)}")
+                db.session.rollback()
+                flash('Ошибка регистрации. Возможно, такой пользователь уже существует.', 'error')
+        else:
+            print("IDI NAHUI")
+    else:
+        return render_template('register.html', form=form)
+
 
 
 @app.route("/logout")
@@ -291,7 +299,7 @@ def teachers():
 
 
 @app.route("/meets-subj1")
-@login_required
+#@login_required
 def meets1():
     if request.method == "POST":
         link = request.form['linkk']
