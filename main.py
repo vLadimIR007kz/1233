@@ -242,6 +242,7 @@ def get_course_content(course_id):
                         line = line.replace(f"<{image_id_str}>",
                                             f"<img src='../../static/{image_filename}' alt='Image'>")
                         print(line)
+                        
                         description[i] = line
                     else:
                         line = line.replace(f"<{image_id_str}>", "")
