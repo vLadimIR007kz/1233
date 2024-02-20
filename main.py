@@ -137,6 +137,7 @@ def index():
     form = LoginForm(request.form)
     print("kekw")
     if request.method=="POST":
+        print("POST")
         if form.validate_on_submit():
             print("LOGIN LETSGO")
             user = User.query.filter_by(email=form.email.data).first()
@@ -149,7 +150,8 @@ def index():
             else:
                 flash('Invalid email or password', 'error')
     else:
-        return render_template('index.html', form=form)
+        print("POMOOGITE BLYAT")
+    return render_template('index.html', form=form)
 
 
 @app.route("/register", methods=['GET', 'POST'])
@@ -157,6 +159,7 @@ def register():
     form = RegistrationForm(request.form)
     print("HUUUU")
     if request.method=="POST":
+        print("POST")
         if form.validate_on_submit():
             try:
                 print("REG LET'S GO")
@@ -177,7 +180,8 @@ def register():
         else:
             print("IDI NAHUI")
     else:
-        return render_template('register.html', form=form)
+        print("TA TI SAEBAL")
+    return render_template('register.html', form=form)
 
 
 
