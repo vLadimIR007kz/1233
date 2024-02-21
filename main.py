@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, flash
+from flask import Flask, render_template, request, redirect, flash, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
 from datetime import datetime
@@ -6,7 +6,13 @@ from flask_login import LoginManager, UserMixin, login_user, login_required, log
 from forms import LoginForm, RegistrationForm
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_mail import Mail, Message
+from flask_wtf.csrf import CSRFProtect
 import pymysql
+import threading
+from threading import Timer
+import time
+from random import randrange, randint
+import threading
 
 pymysql.install_as_MySQLdb()
 import json
