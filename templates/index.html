@@ -23,10 +23,25 @@
 {% endfor %}
 
     <div class="container" id="container">
+        <div class="form-container sign-up">
+    <form method="post">
+        <h1>Создать аккаунт</h1>
+        <span>Создайте аккаунт с помощью почты</span>
+        {{ form.csrf_token }}
+        {{ form.email }}
+        {{ form.login }}
+        {{ form.password }}
+        <button type="submit">Регистрация</button>
+        {% for error in form.errors %}
+            <p class="error">{{ error }}</p>
+        {% endfor %}
+    </form>
+</div>
         <div class="form-container sign-in">
             <form method="post">
                 <h1>Вход в аккаунт</h1>
                 <span>Введите почту</span>
+                {{ form.csrf_token }}
                 {{ form.email }}
                 {{ form.password }}
                 <a href="main.html">Забыли пароль?</a>

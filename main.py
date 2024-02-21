@@ -22,12 +22,15 @@ app = Flask(__name__)
 app.app_context().push()
 ssl_args = {'ssl_ca': 'static/ca.pem'}
 app.config['SECRET_KEY'] = 'a really really really really long secret key'
-app.config['CSRF_ENABLED']= False
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://avnadmin:AVNS_L0R9hOLeXBv9wkirOjP@mysql-306be6a8-enactus.a.aivencloud.com:26361/defaultdb?ssl_key=static/ca.pem'
+app.config[
+    'SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://avnadmin:AVNS_L0R9hOLeXBv9wkirOjP@mysql-306be6a8-enactus.a.aivencloud.com:26361/defaultdb?ssl_key=static/ca.pem'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-engine = create_engine("mysql+pymysql://avnadmin:AVNS_L0R9hOLeXBv9wkirOjP@mysql-306be6a8-enactus.a.aivencloud.com:26361/defaultdb?ssl-mode=REQUIRED",connect_args=ssl_args)
+engine = create_engine(
+    "mysql+pymysql://avnadmin:AVNS_L0R9hOLeXBv9wkirOjP@mysql-306be6a8-enactus.a.aivencloud.com:26361/defaultdb?ssl-mode=REQUIRED",
+    connect_args=ssl_args)
 db = SQLAlchemy(app)
 mail = Mail(app)
+csrf = CSRFProtect(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'index'
 
@@ -120,7 +123,6 @@ def fake_sender():
         print("Oh hell no, man, what the fuck")
 
 
-
 def shedule(func, nth_sec):
     now_sec = datetime.now().second
     wait = (60 + nth_sec - now_sec) % 60
@@ -137,25 +139,22 @@ print("ok")
 def index():
     form = LoginForm(request.form)
     print("kekw")
-    if request.method=="POST":
+    if request.method == "POST":
         print("POST")
         for l in form:
             print(l)
         print(form.validate_on_submit())
         print(form.errors)
-        if form.validate_on_submit():
-            print("LOGIN LETSGO")
-            user = User.query.filter_by(email=form.email.data).first()
 
-            if user and user.check_password(form.password.data):
-                print("START")
-                login_user(user)
-                print("DONE")
-                return redirect('/meets-subj1')
-            else:
-                flash('Invalid email or password', 'error')
+        print("LOGIN LETSGO")
+        user = User.query.filter_by(email=form.email.data).first()
+        if user and user.check_password(form.password.data):
+            print("START")
+            login_user(user)
+            print("DONE")
+            return redirect('/meets-subj1')
         else:
-            print("IDI NAHUI1")
+            flash('Invalid email or password', 'error')
     else:
         print("POMOOGITE BLYAT")
     return render_template('index.html', form=form)
@@ -165,35 +164,31 @@ def index():
 def register():
     form = RegistrationForm(request.form)
     print("HUUUU")
-    if request.method=="POST":
+    if request.method == "POST":
         print("POST")
         for l in form:
             print(l)
         print(form.validate_on_submit())
         print(form.errors)
-        if form.validate_on_submit():
-            try:
-                print("REG LET'S GO")
-                user = User(email=form.email.data, login=form.login.data)
-                user.set_password(form.password.data)
-                user.id = randint(1, 100000000)
-                print("BD PUSH")
-                db.session.add(user)
-                db.session.commit()
-                print("BD DONE")
-                login_user(user)
-                flash('Регистрация успешна!', 'success')
-                return redirect('/meets-subj1')
-            except Exception as e:
-                print(f"Error adding user to the database: {str(e)}")
-                db.session.rollback()
-                flash('Ошибка регистрации. Возможно, такой пользователь уже существует.', 'error')
-        else:
-            print("IDI NAHUI2")
+        try:
+            print("REG LET'S GO")
+            user = User(email=form.email.data, login=form.login.data)
+            user.set_password(form.password.data)
+            user.id = randint(1, 100000000)
+            print("BD PUSH")
+            db.session.add(user)
+            db.session.commit()
+            print("BD DONE")
+            login_user(user)
+            flash('Регистрация успешна!', 'success')
+            return redirect('/meets-subj1')
+        except Exception as e:
+            print(f"Error adding user to the database: {str(e)}")
+            db.session.rollback()
+            flash('Ошибка регистрации. Возможно, такой пользователь уже существует.', 'error')
     else:
         print("TA TI SAEBAL")
     return render_template('register.html', form=form)
-
 
 
 @app.route("/logout")
@@ -315,7 +310,7 @@ def teachers():
 
 
 @app.route("/meets-subj1")
-#@login_required
+# @login_required
 def meets1():
     if request.method == "POST":
         link = request.form['linkk']
