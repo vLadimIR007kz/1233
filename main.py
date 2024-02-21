@@ -146,8 +146,6 @@ def index():
         print(form.errors)
 
 
-
-
         print("LOGIN LETSGO")
         user = User.query.filter_by(email=form.email.data).first()
         if user and user.check_password(form.password.data):
