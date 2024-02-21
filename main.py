@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, flash, jsonify
+from flask import Flask, render_template, request, redirect, flash
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import create_engine
 from datetime import datetime
@@ -6,13 +6,7 @@ from flask_login import LoginManager, UserMixin, login_user, login_required, log
 from forms import LoginForm, RegistrationForm
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_mail import Mail, Message
-from flask_wtf.csrf import CSRFProtect
 import pymysql
-import threading
-from threading import Timer
-import time
-from random import randrange, randint
-import threading
 
 pymysql.install_as_MySQLdb()
 import json
@@ -30,7 +24,6 @@ engine = create_engine(
     connect_args=ssl_args)
 db = SQLAlchemy(app)
 mail = Mail(app)
-csrf = CSRFProtect(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'index'
 
@@ -397,6 +390,32 @@ if not class_9:
     class_9 = Class(name="9")
     db.session.add(class_9)
 
-db.session.commit()'''
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+db.session.commit()
+
+class_5 = Class.query.filter_by(name="5").first()
+class_6 = Class.query.filter_by(name="6").first()
+class_7 = Class.query.filter_by(name="7").first()
+class_8 = Class.query.filter_by(name="8").first()
+class_9 = Class.query.filter_by(name="9").first()
+
+if not class_5:
+    class_5 = Class(name="5")
+    db.session.add(class_5)
+if not class_6:
+    class_6 = Class(name="6")
+    db.session.add(class_6)
+if not class_7:
+    class_7 = Class(name="7")
+    db.session.add(class_7)
+if not class_8:
+    class_8 = Class(name="8")
+    db.session.add(class_8)
+if not class_9:
+    class_9 = Class(name="9")
+    db.session.add(class_9)
+
+db.session.commit()
+'''
+if __name__ == '__main__':
+    app.run(debug=True)
+

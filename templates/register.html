@@ -4,38 +4,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" type = "text/css" href="static\style.css">
     <title>Login page</title>
 </head>
 
 <body>
-{% with messages = get_flashed_messages() %}
-    {% if messages %}
-        <ul class="flashes">
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-{% endwith %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flashes">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
 
     <div class="container" id="container">
         <div class="form-container sign-in">
-            <form method="post">
-                <h1>Создать аккаунт</h1>
-                <span>Создайте аккаунт с помощью почты</span>
-                {{ form.csrf_token }}
-                {{ form.email }}
-                {{ form.login }}
-                {{ form.password }}
+            <form method="post" action="/index">
+                <h1>Вход в аккаунт</h1>
+                <span>Введите почту</span>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="password" name="password" placeholder="Пароль" required>
                 <a href="main.html">Забыли пароль?</a>
-                <button type="submit">{{ form.submit }}</button>
+                <button type="submit">Вход</button>
             </form>
         </div>
         <div class="form-container sign-up">
-</div>
-
+            <form method="post" action="/register">
+                <h1>Создать аккаунт</h1>
+                <span>Создайте аккаунт с помощью почты</span>
+                <input type="email" name="email" placeholder="Email" required>
+                <input type="text" name="login" placeholder="Логин" required>
+                <input type="password" name="password" placeholder="Пароль" required>
+                <button type="submit">Регистрация</button>
+            </form>
+        </div>
         <div class="toggle-container">
             <div class="toggle">
                 <div class="toggle-panel toggle-left">
@@ -51,8 +54,6 @@
             </div>
         </div>
     </div>
-
-
 </body>
 
 </html>
