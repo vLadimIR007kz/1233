@@ -143,7 +143,6 @@ def index():
         print("POST")
         for l in form:
             print(l)
-        print(form.validate_on_submit())
         print(form.errors)
 
 
@@ -170,7 +169,6 @@ def register():
         print("POST")
         for l in form:
             print(l)
-        print(form.validate_on_submit())
         print(form.errors)
         try:
             print("REG LET'S GO")
