@@ -219,10 +219,11 @@ def class_subjects(class_id):
     return render_template('class_subjects.html', class_info=class_info, subjects=subjects)
 
 
-@app.route('/subject/<int:subject_id>/1')
+@app.route('/subject/<int:subject_id>')
 def list_courses(subject_id):
-    subject = Subject.query.get_or_404(subject_id)
-    class_info = Class.query.get_or_404(subject_id)
+    subject = Subject.query.get(subject_id)
+    class_info = Class.query.get(subject_id)
+    #print(class_info)
     courses = subject.courses
     return render_template('article.html', subject=subject, courses=courses, class_info=class_info)
 
