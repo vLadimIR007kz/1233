@@ -146,7 +146,6 @@ def index():
         print(form.errors)
 
 
-
         print("LOGIN LETSGO")
         user = User.query.filter_by(email=form.email.data).first()
         if user and user.check_password(form.password.data):
@@ -203,6 +202,7 @@ def logout():
 def subjects():
     classes = Class.query.all()
     return render_template('subjects.html', classes=classes)
+
 
 
 @app.route('/notifications')
