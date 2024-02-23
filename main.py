@@ -331,6 +331,7 @@ def meets1():
         return render_template('meets.html', questions=questions)
 
 
+
 @app.route("/footer")
 @login_required
 def footer():
