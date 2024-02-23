@@ -332,6 +332,8 @@ def meets1():
 
 
 
+
+
 @app.route("/footer")
 @login_required
 def footer():
