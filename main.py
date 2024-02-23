@@ -204,6 +204,7 @@ def subjects():
     return render_template('subjects.html', classes=classes)
 
 
+
 @app.route('/notifications')
 @login_required
 def notifications():
