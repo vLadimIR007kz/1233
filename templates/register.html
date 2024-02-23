@@ -20,6 +20,8 @@
                     <li>{{ message }}</li>
                 {% endfor %}
             </ul>
+        {% endif %}
+    {% endwith %}
 
     <div class="container" id="container">
         <div class="form-container sign-in">
@@ -32,8 +34,6 @@
                 <button type="submit">Регистрация</button>
             </form>
         </div>
-        {% endif %}
-    {% endwith %}
         <div class="form-container sign-up">
 
         </div>

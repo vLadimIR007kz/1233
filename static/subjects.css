@@ -308,7 +308,9 @@ nav input{
       display: none;
     }
 
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap");
+    .subject-col a{
+        font-size: 36px;
+    }
 
 *,
 *::before,
@@ -426,7 +428,7 @@ body{
   transition: all 200ms linear;
 }
 
-a {
+.sec-center a {
   position: relative;
   color: #fff;
   transition: all 200ms linear;
@@ -587,6 +589,7 @@ a .uil {
     flex-direction: column;
     justify-content: center;
     text-align: center;
+    align-items: center;
     margin: 0 5%;
     gap: 5%;
 }
@@ -644,7 +647,7 @@ a .uil {
   border-radius: 2px;
   padding: 5px 0;
   padding-left: 20px;
-  padding-right: 15px;
+  padding-right: 28px;
   margin: 2px 0;
   text-align: left;
   text-decoration: none;
@@ -659,4 +662,27 @@ a .uil {
   }
 }
 
+@media screen and (max-width: 1610px){
+    .subject-col-col p{
+        font-size: 24px;
+    }
+}
 
+@media screen and (max-width: 1080px){
+    .subject-col-col p{
+        font-size: 16px;
+    }
+}
+
+@media screen and (max-width: 650px){
+    .subject-col-col{
+        flex-direction: column;
+        width: 50%;
+        gap: 20px;
+    }
+
+    .subject-col-col p{
+        border-bottom: 1px solid #000;
+
+    }
+}
