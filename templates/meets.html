@@ -74,7 +74,7 @@
         <h3>{{ el.clas }}</h3>
         <h2>{{ el.possible_days }}</h2>
         <blockquote>{{ el.quote }}</blockquote>
-        {% if her==1 %}
+        {% if current_user.teacher==1%}
         <button class="btn-get" onclick="toggle(hidden_content, {{ el.id }})" id="{{ el.id }}">Принять</button>
         {% endif %}
     </div>

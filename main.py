@@ -317,7 +317,7 @@ def teachers():
 @login_required
 def meets1():
 
-    her=User.teacher
+
     if request.method == "POST":
         link = request.form['linkk']
         try:
@@ -328,7 +328,7 @@ def meets1():
             return "При добавлении ссылки произошла ошибка"
     else:
         questions = usee.query.order_by(usee.date.desc()).all()
-        return render_template('meets.html', questions=questions, her=her)
+        return render_template('meets.html', questions=questions)
 
 
 @app.route("/footer")
