@@ -74,11 +74,7 @@
         <h3>{{ el.clas }}</h3>
         <h2>{{ el.possible_days }}</h2>
         <blockquote>{{ el.quote }}</blockquote>
-        {% for question in questions %}
-        {% if current_user.email != question.email %}
         <button class="btn-get" onclick="toggle(hidden_content, {{ el.id }})" id="{{ el.id }}">Принять</button>
-        {% endif %}
-        {% endfor %}
     </div>
         {%endif%}
       {% endfor %}
