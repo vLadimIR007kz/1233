@@ -46,6 +46,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(50), nullable=False, unique=True)
     password_hash = db.Column(db.String(128), nullable=False)
     login = db.Column(db.String(30), nullable=False, unique=True)
+    teacher=db.Column(db.Integer, default=0)
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)[0:15]
@@ -175,6 +176,7 @@ def register():
             user = User(email=form.email.data, login=form.login.data)
             user.set_password(form.password.data)
             user.id = randint(1, 100000000)
+            user.teacher=0
             print("BD PUSH")
             db.session.add(user)
             db.session.commit()
@@ -312,8 +314,10 @@ def teachers():
 
 
 @app.route("/meets-subj1")
-# @login_required
+@login_required
 def meets1():
+
+
     if request.method == "POST":
         link = request.form['linkk']
         try:
