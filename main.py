@@ -155,7 +155,7 @@ def index():
             print("DONE")
             return redirect('/meets-subj1')
         else:
-            flash('Invalid email or password', 'error')
+            flash('Неверный email или пароль', 'error')
     else:
         print("POMOOGITE BLYAT")
     return render_template('index.html', form=form)
