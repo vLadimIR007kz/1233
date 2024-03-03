@@ -7,15 +7,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="static\meets.css">
+    <link rel="stylesheet" href="static\header.css">
     <script src="static\meet.js"></script>
 </head>
 
 <body>
-<nav>
+  <nav>
     <div class="wrapper">
       <div class="logo"><a href="/"><img src="..\..\static\logo.png" alt=""></a></div>
-      <input type="radio" name="slider" id="menu-btn">
-      <input type="radio" name="slider" id="close-btn">
       <ul class="nav-links">
         <label for="close-btn" class="btn close-btn"><i class="fas fa-times"></i></label>
         <li><a href="/meets-subj1">Консультации</a></li>
@@ -35,8 +34,6 @@
             <li><div><a href="/logout">Выход</a></div></li>
           {% endif %}
       </ul>
-
-      <label for="menu-btn" class="btn menu-btn"><i class="fas fa-bars"></i></label>
     </div>
   </nav>
 
@@ -46,7 +43,6 @@
     <div class="section-dropdown">
       <a href="/main">Главная <i class="uil uil-arrow-right"></i></a>
       <a href="/meets-subj1">Консультации <i class="uil uil-arrow-right"></i></a>
-      <input class="dropdown-sub2" type="checkbox" id="dropdown-sub2" name="dropdown-sub2"/>
       <a href="/subjects">Предметы<i class="uil uil-arrow-right"></i></a>
       <a href="/faq">FAQ</a>
       <a href="/notifications">Уведомления</a>
@@ -62,8 +58,6 @@
 
 <div class="container">
   <a href="/meet-create" class="cr">Создать запрос</a>
-
-
     <div class="meets">
       {% for el in questions%}
         {% if el.confirmed == 0 %}
