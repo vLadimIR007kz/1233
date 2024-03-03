@@ -126,14 +126,60 @@ blockquote p::after {
     align-items: center;
     justify-content: center;
 }
-
+.linkk .form-link{
+  border: 1px solid black;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  padding: 10px;
+  height: 45px;
+}
+.linkk input:nth-child(2){
+  background-color: #021024;
+  border: 0px;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  color: #fff;
+  height: 45px;
+  display: flex;
+  justify-self: center;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px;
+}
 .topic{
     margin-bottom: 1%;
 }
 
+@media screen and (max-wodth:1060px){
+  .linkk{
+    flex-direction: column;
+    gap: 10px;
+  }
+  .linkk input{
+    border-radius: 10px;
+  }
+  .modal{
+    background-color: #fff;
+    width: 40%;
+    height: 30%;
+    left: 30%;
+    top: 30%;
+  }
+}
+@media screen and (max-width:500px){
+  .modal{
+    width: 90%;
+    height: 35%;
+    left: 5%;
+  }
+}
 @media screen and (max-width:400px){
   .meets{
     margin-left: 1%;
     margin-right: 1%;
+  }
+  .meet-box .btn-get{
+    width: 100%;
   }
 }
