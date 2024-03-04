@@ -6,7 +6,9 @@
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
-
+body{
+  background-color: #bce6ee;
+}
 .con{
     height: 70vh;
     top: 100px;
