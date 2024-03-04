@@ -6,9 +6,7 @@
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
 }
-body{
-  background-color: #bce6ee;
-}
+
 .con{
     height: 70vh;
     top: 100px;
@@ -92,6 +90,11 @@ body{
         font-size: 16px;
     }
 }
+@media screen and (max-width: 1060px){
+  body{
+    background-color: #bce6ee;
+  }
+}
 @media screen and (max-width: 820px){
   .subject-col{
     max-width: fit-content;
@@ -102,6 +105,9 @@ body{
         flex-direction: column;
         gap: 20px;
     }
+    .subject-col{
+    flex-direction: column;
+    }
     .subject-col-col p{
         border-bottom: 1px solid #000;
     }
@@ -109,8 +115,5 @@ body{
 @media screen and (max-width:370px){
   .subject-col a{
     font-size: 30px;
-  }
-  .subject-col{
-    flex-direction: column;
   }
 }
