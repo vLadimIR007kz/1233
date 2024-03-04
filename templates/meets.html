@@ -63,8 +63,10 @@
         {% if el.confirmed == 0 %}
     <div class="meet-box">
         <h2>{{ el.topic }}</h2>
-        <span>{{ el.date.date() }}</span>
-        <h3>{{ el.clas }}</h3>
+        <div class="clasDate">
+          <h3>{{ el.clas }}</h3>
+          <span>{{ el.date.date() }}</span>
+        </div>
         <h2>{{ el.possible_days }}</h2>
         <blockquote>{{ el.quote }}</blockquote>
         {% if current_user.teacher==1%}
