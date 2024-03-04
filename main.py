@@ -146,8 +146,7 @@ def index():
         for l in form:
             print(l)
         print(form.errors)
-
-
+        db.session.rollback()
         print("LOGIN LETSGO")
         user = User.query.filter_by(email=form.email.data).first()
         if user and user.check_password(form.password.data):
@@ -172,6 +171,7 @@ def register():
             print(l)
         print(form.errors)
         try:
+            db.session.rollback()
             print("REG LET'S GO")
             user = User(email=form.email.data, login=form.login.data)
             user.set_password(form.password.data)
