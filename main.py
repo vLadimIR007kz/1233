@@ -108,7 +108,7 @@ class Image(db.Model):
         return f"Image('{self.filename}')"
 
 
-def fake_sender():
+def fake_sender(): 
     app.app_context().push()
     randomval = randint(1, 100000000)
     ide = randomvalue(id=randomval)
