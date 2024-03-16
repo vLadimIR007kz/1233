@@ -1,5 +1,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
 
+@keyframes move{
+    0%, 49.99%{
+        opacity: 0;
+        z-index: 1;
+    }
+    50%, 100%{
+        opacity: 1;
+        z-index: 5;
+    }
+}
+
 *{
     margin: 0;
     padding: 0;
@@ -15,9 +26,24 @@ body{
     height: 100vh;
 }
 
+/* ----Alert---- */
+.alert{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    font-size: 16px;
+    width: 50%;
+    left: 25%;
+    top: 1%;
+    position: absolute;
+}
+.flashes{
+    list-style-type: none;
+    padding: 0;
+}
 
-
-
+/* ----Form---- */
 .container{
     display: flex;
     align-self: center;
@@ -29,7 +55,7 @@ body{
     overflow: hidden;
     width: 768px;
     max-width: 100%;
-    min-height: 50%;
+    min-height: 65%;
 }
 
 .container p{
@@ -104,36 +130,12 @@ body{
     width: 50%;
     z-index: 2;
 }
-
-.container.active .sign-in{
-    transform: translateX(100%);
-}
-
 .sign-up{
     left: 0;
     width: 50%;
     opacity: 0;
     z-index: 1;
 }
-
-.container.active .sign-up{
-    transform: translateX(100%);
-    opacity: 1;
-    z-index: 5;
-    animation: move 0.6s;
-}
-
-@keyframes move{
-    0%, 49.99%{
-        opacity: 0;
-        z-index: 1;
-    }
-    50%, 100%{
-        opacity: 1;
-        z-index: 5;
-    }
-}
-
 
 .toggle-container{
     position: absolute;
@@ -146,12 +148,6 @@ body{
     border-radius: 150px 0 0 100px;
     z-index: 1000;
 }
-
-.container.active .toggle-container{
-    transform: translateX(-100%);
-    border-radius: 0 150px 100px 0;
-}
-
 .toggle{
     background-color: #fff;
     height: 100%;
@@ -164,11 +160,6 @@ body{
     transform: translateX(0);
     transition: all 0.6s ease-in-out;
 }
-
-.container.active .toggle{
-    transform: translateX(50%);
-}
-
 .toggle-panel{
     position: absolute;
     width: 50%;
@@ -183,104 +174,23 @@ body{
     transform: translateX(0);
     transition: all 0.6s ease-in-out;
 }
-
-.toggle-left{
-    transform: translateX(-200%);
-}
-
-.container.active .toggle-left{
-    transform: translateX(0);
-}
-
 .toggle-right{
     right: 0;
     transform: translateX(0);
 }
 
-.container.active .toggle-right{
-    transform: translateX(200%);
-}
-
-
-@media screen and (max-width: 729px){
-
-    .toggle-left{
-        font-size: 80%;
+@media screen and (max-width: 780px){
+    .alert{
+        width: 98%;
+        left: 1%;
     }
-
-    .toggle-left p{
-        font-size: 80%;
+    .toggle-container{
+        display: none;
     }
-
-    .toggle-right{
-        font-size: 80%;
+    .container{
+        width: 98%;
     }
-
-    .toggle-right p{
-        font-size: 80%;
+    .form-container{
+        width: 100%;
     }
-
-    .toggle-right button{
-        width: fit-content;
-        font-size: 8px;
-        text-align: center;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .toggle-left button{
-        width: 40%;
-        font-size: 8px;
-        text-align: center;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-}
-
-@media screen and (max-width: 608px){
-
-    .toggle-left{
-        font-size: 60%;
-    }
-    
-}
-
-@media screen and (max-width: 420px){
-
-    .toggle-right button{
-        font-size: 6px;
-        width: 50%;
-    }
-
-    .toggle-right{
-        font-size: 60%;
-    }
-
-    .toggle-right p{
-        font-size: 80%;
-    }
-
-    .sign-up{
-        font-size: 80%;
-    }
-
-    .sign-up button{
-        width: 40%;
-        font-size: 8px;
-        text-align: center;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    
-}
-
-.alert{
-    width: 50%;
-    left: 25%;
-    top: 1%;
-    position: absolute;
 }
